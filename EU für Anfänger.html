@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urlaubs-Lern-App</title>
+    <style>
+        :root {
+            --bg-color: #FFDE59;
+            --btn-sonne: #FF914D;
+            --btn-pause: #7ED957;
+            --btn-zauber: #5271FF;
+            --btn-profi: #CB6CE6;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 10px;
+        }
+
+        .phone-screen {
+            background-color: white;
+            width: 100%;
+            max-width: 500px;
+            min-height: 85vh;
+            border: 12px solid #333;
+            border-radius: 60px;
+            position: relative;
+            padding: 40px 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        #login-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        #login-screen h1 { font-size: 2.5rem; color: #FF5757; }
+        #user-name {
+            padding: 15px;
+            font-size: 1.5rem;
+            border-radius: 20px;
+            border: 4px solid #333;
+            width: 80%;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        #app-content { display: none; flex-direction: column; height: 100%; flex-grow: 1; }
+
+        h1 { text-align: center; color: #333; font-size: 2rem; margin-bottom: 30px; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .menu-card {
+            aspect-ratio: 1;
+            border-radius: 30px;
+            border: none;
+            color: white;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.2s;
+            box-shadow: 0 8px 0 rgba(0,0,0,0.1);
+            padding: 15px;
+            text-align: center;
+        }
+
+        .menu-card:active { transform: scale(0.95); }
+        .menu-card i { font-style: normal; font-size: 2.5rem; margin-bottom: 10px; }
+
+        .content-page {
+            display: none;
+            animation: slideIn 0.3s ease-out;
+            flex-direction: column;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+
+        .content-header { font-size: 1.6rem; font-weight: bold; margin-bottom: 15px; text-align: center; }
+        .quote { font-style: italic; color: #666; margin-bottom: 20px; display: block; text-align: center; font-size: 1.1rem; }
+        
+        ul { list-style: none; padding: 0; }
+        li { 
+            background: #f8f8f8; 
+            margin-bottom: 12px; 
+            padding: 15px; 
+            border-radius: 20px; 
+            font-size: 1rem;
+            border-left: 8px solid #333;
+            line-height: 1.4;
+        }
+
+        .understand-btn, .login-btn {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            width: 100%;
+            margin-top: auto;
+            cursor: pointer;
+        }
+
+        .big-img { font-size: 4rem; display: block; text-align: center; margin: 15px 0; }
+    </style>
+</head>
+<body>
+
+    <div class="phone-screen">
+        <div id="login-screen">
+            <div class="big-img">🦉</div>
+            <h1>Wer will hier Urlaub lernen?</h1>
+            <input type="text" id="user-name" placeholder="Dein Name hier..." onkeypress="if(event.key === 'Enter') startApp()">
+            <button class="login-btn" onclick="startApp()">App starten!</button>
+        </div>
+
+        <div id="app-content">
+            <div id="home">
+                <h1 id="welcome-msg">Hallo!</h1>
+                <div class="grid">
+                    <button class="menu-card" style="background-color: var(--btn-sonne);" onclick="showPage('sonne')">
+                        <i>🏝️</i>SONNE TANKEN
+                    </button>
+                    <button class="menu-card" style="background-color: var(--btn-pause);" onclick="showPage('pause')">
+                        <i>⏳</i>PAUSE MACHEN
+                    </button>
+                    <button class="menu-card" style="background-color: var(--btn-zauber);" onclick="showPage('zauber')">
+                        <i>📝</i>Das Zauber-Formular
+                    </button>
+                    <button class="menu-card" style="background-color: var(--btn-profi);" onclick="showPage('profi')">
+                        <i>🚩</i>Profis-Check
+                    </button>
+                </div>
+            </div>
+
+            <div id="sonne" class="content-page">
+                <div class="content-header">🏝️ Kapitel 1: Sonne tanken</div>
+                <span class="quote">„Nach 25 Jahren schaffen wir das jetzt gemeinsam!“</span>
+                <div class="big-img">☀️</div>
+                <ul>
+                    <li style="border-color: var(--btn-sonne);"><strong>30 Tage pro Jahr:</strong> Du hast 30 Mal die Chance, im Bett zu bleiben, wenn du eine 5-Tage-Woche hast.</li>
+                    <li style="border-color: var(--btn-sonne);"><strong>Früh fragen:</strong> Sag deinem Chef rechtzeitig Bescheid, damit jemand anderes deine Arbeit machen kann (wie sonst auch immer).</li>
+                    <li style="border-color: var(--btn-sonne);"><strong>Der Plan:</strong> Am Anfang des Jahres schreiben wir alle in eine bunte Liste, wer wann in die Sonne möchte.</li>
+                    <li style="border-color: var(--btn-sonne);"><strong>Krank im Urlaub?</strong> Wenn du im Urlaub hinfällst und der Onkel Doktor dir einen Zettel gibt, zählen diese Tage nicht als Urlaub. Du darfst sie später nochmal nehmen!</li>
+                </ul>
+                <button class="understand-btn" onclick="goHome()">Das habe ich verstanden</button>
+            </div>
+
+            <div id="pause" class="content-page">
+                <div class="content-header">⏳ Kapitel 2: Pause machen</div>
+                <span class="quote">„Wenn du zu viel gearbeitet hast, darfst du früher spielen gehen.“</span>
+                <div class="big-img">🍦</div>
+                <ul>
+                    <li style="border-color: var(--btn-pause);"><strong>Wichtig zu unterscheiden:</strong> Urlaub ist für die ganze Woche oder ganze Tage.</li>
+                    <li style="border-color: var(--btn-pause);"><strong>Dienstbefreiung:</strong> Wenn du nur ein paar Stunden früher weg willst (z. B. für einen Termin), heißt das Dienstbefreiung.</li>
+                    <li style="border-color: var(--btn-pause);"><strong>Überstunden:</strong> Hast du Überstunden? Dann ist das dein Zeitguthaben, das du wie einen Schatz gegen Freizeit eintauschen kannst.</li>
+                </ul>
+                <button class="understand-btn" onclick="goHome()">Das habe ich verstanden</button>
+            </div>
+
+            <div id="zauber" class="content-page">
+                <div class="content-header">📝 Das Zauber-Formular</div>
+                <span class="quote">„Ohne Zettel kein Strand!“</span>
+                <div class="big-img">✍️</div>
+                <ul>
+                    <li style="border-color: var(--btn-zauber);"><strong>Nimm den Stift:</strong> Du musst deinen Wunsch immer schriftlich aufschreiben.</li>
+                    <li style="border-color: var(--btn-zauber);"><strong>Zwei Arten von Zauber-Formularen:</strong> 
+                        <br>1. Das <strong>Urlaubs-Zauberformular</strong>: Womit man Urlaub schreiben kann siehe Kapitel 1 (Sonne Tanken).
+                        <br>2. Das <strong>Stunden-Zauberformular</strong>: Das Stunden Formular ist nur dann auszufüllen wenn man einen ganzen Tag auf Stundenbasis frei haben möchte.</li>
+                    <li style="border-color: var(--btn-zauber);"><strong>Wichtig:</strong> Wenn man nur ein paar Stunden nehmen möchte z.B.: von 15-17 Uhr dann reicht ein Eintrag im AZE Ordner.</li>
+                    <li style="border-color: var(--btn-zauber);"><strong>Der Name:</strong> Das Zauber-Papier heißt <strong>Bw-2050</strong>.</li>
+                    <li style="border-color: var(--btn-zauber);"><strong>Wo bist du?</strong> Schreib drauf, wo du bist (deine Urlaubsanschrift), falls wir dich vermissen.</li>
+                    <li style="border-color: var(--btn-zauber);"><strong>Warten auf das Ja:</strong> Erst wenn dein Chef „Ja“ sagt (Genehmigung), darfst du wirklich die Koffer packen.</li>
+                </ul>
+                <button class="understand-btn" onclick="goHome()">Das habe ich verstanden</button>
+            </div>
+
+            <div id="profi" class="content-page">
+                <div class="content-header">🚩 Der Profis-Check</div>
+                <div class="big-img">🎓</div>
+                <ul>
+                    <li style="border-color: var(--btn-profi);"><strong>Resturlaub:</strong> Musst du innerhalb von 12 Monaten nach dem Jahr verbrauchen, sonst ist er weg wie geschmolzenes Eis.</li>
+                    <li style="border-color: var(--btn-profi);"><strong>Kein Vorgriff:</strong> Du darfst heute noch nicht den Urlaub vom nächsten Jahr verbrauchen.</li>
+                </ul>
+                <button class="understand-btn" onclick="goHome()">Das habe ich verstanden</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playSound(freq, type, duration) {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = type;
+            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + duration);
+        }
+
+        function playPling() { playSound(880, 'sine', 0.2); }
+        function playTada() {
+            playSound(523.25, 'square', 0.1);
+            setTimeout(() => playSound(659.25, 'square', 0.1), 100);
+            setTimeout(() => playSound(783.99, 'square', 0.3), 200);
+        }
+
+        function startApp() {
+            const name = document.getElementById('user-name').value;
+            if (name.trim() !== "") {
+                playTada();
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('app-content').style.display = 'flex';
+                document.getElementById('welcome-msg').innerText = "Hallo " + name + "! Was lernen wir heute?";
+            } else {
+                alert("Bitte gib erst deinen Namen ein! 🏴‍☠️");
+            }
+        }
+
+        function showPage(pageId) {
+            playPling();
+            document.getElementById('home').style.display = 'none';
+            document.querySelectorAll('.content-page').forEach(p => p.style.display = 'none');
+            document.getElementById(pageId).style.display = 'flex';
+        }
+
+        function goHome() {
+            playPling();
+            document.querySelectorAll('.content-page').forEach(p => p.style.display = 'none');
+            document.getElementById('home').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
